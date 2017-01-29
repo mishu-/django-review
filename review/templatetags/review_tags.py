@@ -1,4 +1,5 @@
 """Template tags for the ``review`` app."""
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.template import Library
 
@@ -12,7 +13,10 @@ register = Library()
 def get_reviews(obj):
     """Simply returns the reviews for an object."""
     ctype = ContentType.objects.get_for_model(obj)
-    return models.Review.objects.filter(content_type=ctype, object_id=obj.id)
+    if getattr(settings, 'REVIEW_HIDE_UNVERIFIED', False):
+        return models.Review.objects.filter(content_type=ctype, object_id=obj.id, verified=True)
+    else:
+        return models.Review.objects.filter(content_type=ctype, object_id=obj.id)
 
 
 @register.assignment_tag

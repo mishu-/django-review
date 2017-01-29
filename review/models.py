@@ -36,6 +36,7 @@ class Review(models.Model):
       manually save a Review via the Django admin, this field will not be
       updated.
     :extra_item: Optional object, which should be attached to the review.
+    :verified: Flag to allow admins to verify reviews before they are shown
 
     """
     # GFK 'reviewed_item'
@@ -84,6 +85,11 @@ class Review(models.Model):
     extra_object_id = models.PositiveIntegerField(null=True, blank=True)
     extra_item = fields.GenericForeignKey(
         'extra_content_type', 'extra_object_id')
+
+    verified = models.BooleanField(
+        verbose_name=_('Verified by admin'),
+        default=False,
+    )
 
     class Meta:
         ordering = ['-creation_date']
@@ -198,7 +204,6 @@ class Review(models.Model):
             if timezone.now() > period_end:
                 return False
         return True
-
 
 @python_2_unicode_compatible
 class ReviewExtraInfo(models.Model):

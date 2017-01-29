@@ -304,6 +304,15 @@ setting.
     # this would use a RadioSelect instead of the default Select
     REVIEW_FORM_CHOICE_WIDGET = 'django.forms.widgets.RadioSelect'
 
+REVIEW_HIDE_UNVERIFIED
+++++++++++++++++++++++
+
+When listing reviews in templates if you want to hide unverified reviews you can use
+this setting. They will still be computed in the average.
+
+.. code-block:: python
+
+    REVIEW_FORM_CHOICE_WIDGET = True
 
 Contribute
 ----------
