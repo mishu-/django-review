@@ -14,6 +14,7 @@ class RatingAdmin(admin.ModelAdmin):
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ['reviewed_item', 'user', 'language', 'creation_date']
+    list_filter = ['verified']
 
 
 class ReviewExtraInfoAdmin(admin.ModelAdmin):
